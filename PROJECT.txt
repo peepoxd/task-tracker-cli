@@ -1,0 +1,40 @@
+Task Tracker CLI
+================
+Source: https://roadmap.sh/projects/task-tracker
+Created: 2026-02-06
+Language: Java 17 (pure — no external libraries)
+
+Project Tree
+────────────
+task-tracker-cli/
+├── build.sh                        # Compile all .java → out/
+├── task-cli                        # CLI runner: ./task-cli <command>
+├── PROJECT.txt                     # This file
+├── src/
+│   └── tasktracker/
+│       ├── App.java                # Entry point — CLI arg parsing, commands
+│       ├── Task.java               # Model — id, description, status, timestamps
+│       ├── TaskStatus.java         # Enum — todo, in-progress, done
+│       └── TaskStorage.java        # JSON file I/O — hand-rolled parser/writer
+├── out/                            # Compiled .class files (build output)
+└── tasks.json                      # Auto-created at runtime (data store)
+
+Commands
+────────
+  ./task-cli add "description"            Add a new task
+  ./task-cli update <id> "description"    Update task description
+  ./task-cli delete <id>                  Delete a task
+  ./task-cli mark-in-progress <id>        Mark task as in-progress
+  ./task-cli mark-done <id>               Mark task as done
+  ./task-cli list                         List all tasks
+  ./task-cli list todo                    Filter by status
+  ./task-cli list in-progress
+  ./task-cli list done
+
+Design Decisions
+────────────────
+- No Maven/Gradle — just javac via build.sh, keeps it minimal
+- Hand-rolled JSON parser in TaskStorage — no javax.json or Gson
+- JSON stored in working directory as tasks.json, auto-created if missing
+- Task IDs are auto-incremented (max existing ID + 1)
+- Special characters (quotes, backslash) properly escaped in JSON output

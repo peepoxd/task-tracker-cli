@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+OUT_DIR="$SCRIPT_DIR/out"
+
+if [ ! -d "$OUT_DIR" ]; then
+    echo "Not built yet. Running build.sh first..."
+    bash "$SCRIPT_DIR/build.sh"
+fi
+
+java -cp "$OUT_DIR" tasktracker.App "$@"
