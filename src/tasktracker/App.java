@@ -110,6 +110,7 @@ public class App {
         System.out.printf("%-4s %-40s %-15s %-20s%n", "ID", "Description", "Status", "Updated");
         System.out.println("-".repeat(81));
 
+        int count = tasks.size();
         for (Task task : tasks) {
             String desc = task.getDescription();
             if (desc.length() > 38) desc = desc.substring(0, 35) + "...";
@@ -119,6 +120,7 @@ public class App {
                     task.getStatus().getValue(),
                     task.getUpdatedAt().toString().replace("T", " "));
         }
+        System.out.printf("%nTotal tasks: %d%n", count);
     }
 
     // ── Helpers ─────────────────────────────────────────────
